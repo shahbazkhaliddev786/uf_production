@@ -39,7 +39,7 @@ const fadeUp = {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 const stagger = {
@@ -53,7 +53,7 @@ function Nav() {
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
       className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[min(1200px,calc(100%-1.5rem))]"
     >
       <div className="glass flex items-center justify-between rounded-full px-4 py-2.5 shadow-soft">
@@ -430,7 +430,7 @@ function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
               className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
             >
               {PROJECTS[active].map((p, i) => (
@@ -489,7 +489,7 @@ function Featured() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="overflow-hidden rounded-[36px] border border-foreground/10 bg-surface shadow-soft"
         >
           <div className="grid md:grid-cols-[1.3fr_1fr]">
@@ -644,7 +644,7 @@ function Process() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
                   className={"relative grid grid-cols-1 md:grid-cols-2 md:gap-12 " + (right ? "md:[&>*:first-child]:col-start-2" : "")}
                 >
                   <div className={"relative " + (right ? "md:text-left" : "md:text-right")}>
@@ -689,7 +689,7 @@ function Testimonials() {
               initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
               className="glass mx-auto max-w-3xl rounded-3xl p-10 shadow-soft"
             >
               <Quote className="mx-auto h-6 w-6 text-[color:var(--ember)]" />
@@ -738,7 +738,7 @@ function About() {
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
           className="relative overflow-hidden rounded-[32px] border border-foreground/10 shadow-soft"
         >
           <div className="relative aspect-[4/5]">
@@ -819,7 +819,7 @@ function CTA() {
           initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as const }}
           className="font-display text-6xl font-semibold tracking-tight text-balance md:text-8xl"
         >
           Let's create something{" "}
