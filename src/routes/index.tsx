@@ -370,33 +370,33 @@ type Project = {
   category: string;
   desc: string;
   duration: string;
-  tone: "a" | "b" | "c";
+  image: string;
 };
 const PROJECTS: Record<string, Project[]> = {
   "AI Videos": [
-    { title: "Neon Cartographers", category: "AI Short Film", desc: "A stylised AI-generated journey through invented cities.", duration: "03:24", tone: "b" },
-    { title: "Echoes of Tomorrow", category: "AI Commercial", desc: "Product story blending live plates with generative motion.", duration: "01:12", tone: "a" },
-    { title: "The Silent Loop", category: "AI Music Video", desc: "Rhythmic edit synced to a generative aesthetic.", duration: "02:48", tone: "c" },
+    { title: "Neon Cartographers", category: "AI Short Film", desc: "A stylised AI-generated journey through invented cities.", duration: "03:24", image: thumb1 },
+    { title: "Echoes of Tomorrow", category: "AI Commercial", desc: "Product story blending live plates with generative motion.", duration: "01:12", image: thumb5 },
+    { title: "The Silent Loop", category: "AI Music Video", desc: "Rhythmic edit synced to a generative aesthetic.", duration: "02:48", image: thumb3 },
   ],
   Documentaries: [
-    { title: "Salt & Iron", category: "Feature Doc", desc: "Shipbuilders on the northern coast, told over one year.", duration: "12:03", tone: "a" },
-    { title: "Between the Peaks", category: "Travel Doc", desc: "Andean guides and the geography of memory.", duration: "18:41", tone: "c" },
-    { title: "Small Fires", category: "Social Impact", desc: "Community storytellers rebuilding after loss.", duration: "22:10", tone: "b" },
+    { title: "Salt & Iron", category: "Feature Doc", desc: "Shipbuilders on the northern coast, told over one year.", duration: "12:03", image: thumb3 },
+    { title: "Between the Peaks", category: "Travel Doc", desc: "Andean guides and the geography of memory.", duration: "18:41", image: thumb6 },
+    { title: "Small Fires", category: "Social Impact", desc: "Community storytellers rebuilding after loss.", duration: "22:10", image: thumb4 },
   ],
   "Cinematic Videos": [
-    { title: "Amber Hours", category: "Brand Film", desc: "A watchmaker's studio filmed in a single golden afternoon.", duration: "02:30", tone: "a" },
-    { title: "Atrium", category: "Commercial", desc: "Architectural showcase with slow motion and warm grade.", duration: "01:45", tone: "c" },
-    { title: "Northbound", category: "Automotive", desc: "A road film with practical light and analog textures.", duration: "03:12", tone: "b" },
+    { title: "Amber Hours", category: "Brand Film", desc: "A watchmaker's studio filmed in a single golden afternoon.", duration: "02:30", image: thumb2 },
+    { title: "Atrium", category: "Commercial", desc: "Architectural showcase with slow motion and warm grade.", duration: "01:45", image: thumb1 },
+    { title: "Northbound", category: "Automotive", desc: "A road film with practical light and analog textures.", duration: "03:12", image: thumb6 },
   ],
   Podcasts: [
-    { title: "The Long Take", category: "Podcast Series", desc: "Editorial cutdowns and animated pull-quotes.", duration: "45:00", tone: "c" },
-    { title: "After Hours", category: "Interview Show", desc: "Multi-cam edits with cinematic B-roll interludes.", duration: "38:14", tone: "a" },
-    { title: "Signal & Noise", category: "Tech Podcast", desc: "Motion-graphic explainers between conversation.", duration: "51:22", tone: "b" },
+    { title: "The Long Take", category: "Podcast Series", desc: "Editorial cutdowns and animated pull-quotes.", duration: "45:00", image: thumb4 },
+    { title: "After Hours", category: "Interview Show", desc: "Multi-cam edits with cinematic B-roll interludes.", duration: "38:14", image: thumb4 },
+    { title: "Signal & Noise", category: "Tech Podcast", desc: "Motion-graphic explainers between conversation.", duration: "51:22", image: thumb2 },
   ],
   "AI Stories": [
-    { title: "Paper Weather", category: "AI Narrative", desc: "A miniature world where forecasts become fables.", duration: "04:02", tone: "b" },
-    { title: "The Cartographer's Dream", category: "AI Short", desc: "A dream sequence stitched from thousands of frames.", duration: "05:18", tone: "a" },
-    { title: "Chorus", category: "AI Anthology", desc: "Six voices, six cities, one continuous edit.", duration: "07:44", tone: "c" },
+    { title: "Paper Weather", category: "AI Narrative", desc: "A miniature world where forecasts become fables.", duration: "04:02", image: thumb5 },
+    { title: "The Cartographer's Dream", category: "AI Short", desc: "A dream sequence stitched from thousands of frames.", duration: "05:18", image: thumb1 },
+    { title: "Chorus", category: "AI Anthology", desc: "Six voices, six cities, one continuous edit.", duration: "07:44", image: thumb3 },
   ],
 };
 const TABS = Object.keys(PROJECTS);
@@ -485,7 +485,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-          <ReelArt tone={project.tone} label={`${project.category.toUpperCase()} · ${project.duration}`} />
+          <ReelArt src={project.image} label={`${project.category.toUpperCase()} · ${project.duration}`} />
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
@@ -524,7 +524,7 @@ function Featured() {
         >
           <div className="grid md:grid-cols-[1.3fr_1fr]">
             <div className="relative aspect-video md:aspect-auto">
-              <ReelArt tone="a" label="FEATURED · AMBER HOURS · 02:30" />
+              <ReelArt src={thumb2} label="FEATURED · AMBER HOURS · 02:30" />
               <button
                 aria-label="Play trailer"
                 className="absolute inset-0 grid place-items-center transition-transform hover:scale-[1.02]"
