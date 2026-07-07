@@ -23,6 +23,15 @@ import {
   Star,
 } from "lucide-react";
 
+import heroStill from "@/assets/hero-still.jpg";
+import aboutPortrait from "@/assets/about-portrait.jpg";
+import thumb1 from "@/assets/thumb-1.jpg";
+import thumb2 from "@/assets/thumb-2.jpg";
+import thumb3 from "@/assets/thumb-3.jpg";
+import thumb4 from "@/assets/thumb-4.jpg";
+import thumb5 from "@/assets/thumb-5.jpg";
+import thumb6 from "@/assets/thumb-6.jpg";
+
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -209,19 +218,19 @@ function FloatingReel() {
         style={{ y: y1 }}
         className="animate-float absolute right-0 top-0 h-56 w-96 overflow-hidden rounded-3xl shadow-soft"
       >
-        <ReelArt tone="a" label="COMMERCIAL · 04:12" />
+        <ReelArt src={thumb6} label="COMMERCIAL · 04:12" showPlay eager />
       </motion.div>
       <motion.div
         style={{ y: y2 }}
         className="animate-float absolute right-[26%] top-[38%] h-44 w-72 overflow-hidden rounded-3xl shadow-soft [animation-delay:-2s]"
       >
-        <ReelArt tone="b" label="AI FILM · 02:48" />
+        <ReelArt src={thumb5} label="AI FILM · 02:48" showPlay eager />
       </motion.div>
       <motion.div
         style={{ y: y3 }}
         className="animate-float absolute right-[52%] top-[12%] h-40 w-64 overflow-hidden rounded-3xl shadow-soft [animation-delay:-4s]"
       >
-        <ReelArt tone="c" label="DOC · 12:03" />
+        <ReelArt src={thumb3} label="DOC · 12:03" showPlay eager />
       </motion.div>
 
       {/* Timeline strip */}
@@ -250,26 +259,47 @@ function FloatingReel() {
   );
 }
 
-function ReelArt({ tone, label }: { tone: "a" | "b" | "c"; label: string }) {
-  const bg =
-    tone === "a"
-      ? "linear-gradient(135deg,#1a1a1a,#3b2a12 60%,#F6C453)"
-      : tone === "b"
-      ? "linear-gradient(135deg,#141414,#5a2d0a 55%,#FFB347)"
-      : "linear-gradient(135deg,#0f0f0f,#2a2410 50%,#F6C453 130%)";
+function ReelArt({
+  src,
+  label,
+  showPlay = false,
+  eager = false,
+}: {
+  src: string;
+  label?: string;
+  showPlay?: boolean;
+  eager?: boolean;
+}) {
   return (
-    <div className="relative h-full w-full" style={{ background: bg }}>
-      <div className="absolute inset-0 bg-[radial-gradient(400px_200px_at_20%_20%,rgba(255,255,255,0.25),transparent)]" />
-      <div className="absolute inset-x-0 bottom-0 h-8 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.7)_0_10px,transparent_10px_20px)]" />
-      <div className="absolute inset-x-0 top-0 h-8 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.7)_0_10px,transparent_10px_20px)]" />
-      <div className="absolute left-4 top-1/2 -translate-y-1/2">
-        <div className="grid h-10 w-10 place-items-center rounded-full bg-white/90 text-black">
-          <Play className="h-4 w-4 fill-current" />
+    <div className="relative h-full w-full overflow-hidden bg-[#111]">
+      <img
+        src={src}
+        alt=""
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* cinematic vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_45%,rgba(0,0,0,0.55)_100%)]" />
+      {/* film strip perforations */}
+      <div className="absolute inset-x-0 top-0 h-4 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.85)_0_8px,transparent_8px_16px)] opacity-70" />
+      <div className="absolute inset-x-0 bottom-0 h-4 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.85)_0_8px,transparent_8px_16px)] opacity-70" />
+      {showPlay && (
+        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-white/95 text-black shadow-lg">
+            <Play className="h-4 w-4 fill-current" />
+          </div>
         </div>
-      </div>
-      <div className="absolute bottom-3 right-4 text-[10px] font-medium uppercase tracking-widest text-white/90">
-        {label}
-      </div>
+      )}
+      {label && (
+        <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-medium uppercase tracking-widest text-white/90">
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--gold)]" />
+            REC
+          </span>
+          <span>{label}</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -340,33 +370,33 @@ type Project = {
   category: string;
   desc: string;
   duration: string;
-  tone: "a" | "b" | "c";
+  image: string;
 };
 const PROJECTS: Record<string, Project[]> = {
   "AI Videos": [
-    { title: "Neon Cartographers", category: "AI Short Film", desc: "A stylised AI-generated journey through invented cities.", duration: "03:24", tone: "b" },
-    { title: "Echoes of Tomorrow", category: "AI Commercial", desc: "Product story blending live plates with generative motion.", duration: "01:12", tone: "a" },
-    { title: "The Silent Loop", category: "AI Music Video", desc: "Rhythmic edit synced to a generative aesthetic.", duration: "02:48", tone: "c" },
+    { title: "Neon Cartographers", category: "AI Short Film", desc: "A stylised AI-generated journey through invented cities.", duration: "03:24", image: thumb1 },
+    { title: "Echoes of Tomorrow", category: "AI Commercial", desc: "Product story blending live plates with generative motion.", duration: "01:12", image: thumb5 },
+    { title: "The Silent Loop", category: "AI Music Video", desc: "Rhythmic edit synced to a generative aesthetic.", duration: "02:48", image: thumb3 },
   ],
   Documentaries: [
-    { title: "Salt & Iron", category: "Feature Doc", desc: "Shipbuilders on the northern coast, told over one year.", duration: "12:03", tone: "a" },
-    { title: "Between the Peaks", category: "Travel Doc", desc: "Andean guides and the geography of memory.", duration: "18:41", tone: "c" },
-    { title: "Small Fires", category: "Social Impact", desc: "Community storytellers rebuilding after loss.", duration: "22:10", tone: "b" },
+    { title: "Salt & Iron", category: "Feature Doc", desc: "Shipbuilders on the northern coast, told over one year.", duration: "12:03", image: thumb3 },
+    { title: "Between the Peaks", category: "Travel Doc", desc: "Andean guides and the geography of memory.", duration: "18:41", image: thumb6 },
+    { title: "Small Fires", category: "Social Impact", desc: "Community storytellers rebuilding after loss.", duration: "22:10", image: thumb4 },
   ],
   "Cinematic Videos": [
-    { title: "Amber Hours", category: "Brand Film", desc: "A watchmaker's studio filmed in a single golden afternoon.", duration: "02:30", tone: "a" },
-    { title: "Atrium", category: "Commercial", desc: "Architectural showcase with slow motion and warm grade.", duration: "01:45", tone: "c" },
-    { title: "Northbound", category: "Automotive", desc: "A road film with practical light and analog textures.", duration: "03:12", tone: "b" },
+    { title: "Amber Hours", category: "Brand Film", desc: "A watchmaker's studio filmed in a single golden afternoon.", duration: "02:30", image: thumb2 },
+    { title: "Atrium", category: "Commercial", desc: "Architectural showcase with slow motion and warm grade.", duration: "01:45", image: thumb1 },
+    { title: "Northbound", category: "Automotive", desc: "A road film with practical light and analog textures.", duration: "03:12", image: thumb6 },
   ],
   Podcasts: [
-    { title: "The Long Take", category: "Podcast Series", desc: "Editorial cutdowns and animated pull-quotes.", duration: "45:00", tone: "c" },
-    { title: "After Hours", category: "Interview Show", desc: "Multi-cam edits with cinematic B-roll interludes.", duration: "38:14", tone: "a" },
-    { title: "Signal & Noise", category: "Tech Podcast", desc: "Motion-graphic explainers between conversation.", duration: "51:22", tone: "b" },
+    { title: "The Long Take", category: "Podcast Series", desc: "Editorial cutdowns and animated pull-quotes.", duration: "45:00", image: thumb4 },
+    { title: "After Hours", category: "Interview Show", desc: "Multi-cam edits with cinematic B-roll interludes.", duration: "38:14", image: thumb4 },
+    { title: "Signal & Noise", category: "Tech Podcast", desc: "Motion-graphic explainers between conversation.", duration: "51:22", image: thumb2 },
   ],
   "AI Stories": [
-    { title: "Paper Weather", category: "AI Narrative", desc: "A miniature world where forecasts become fables.", duration: "04:02", tone: "b" },
-    { title: "The Cartographer's Dream", category: "AI Short", desc: "A dream sequence stitched from thousands of frames.", duration: "05:18", tone: "a" },
-    { title: "Chorus", category: "AI Anthology", desc: "Six voices, six cities, one continuous edit.", duration: "07:44", tone: "c" },
+    { title: "Paper Weather", category: "AI Narrative", desc: "A miniature world where forecasts become fables.", duration: "04:02", image: thumb5 },
+    { title: "The Cartographer's Dream", category: "AI Short", desc: "A dream sequence stitched from thousands of frames.", duration: "05:18", image: thumb1 },
+    { title: "Chorus", category: "AI Anthology", desc: "Six voices, six cities, one continuous edit.", duration: "07:44", image: thumb3 },
   ],
 };
 const TABS = Object.keys(PROJECTS);
@@ -455,7 +485,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-          <ReelArt tone={project.tone} label={`${project.category.toUpperCase()} · ${project.duration}`} />
+          <ReelArt src={project.image} label={`${project.category.toUpperCase()} · ${project.duration}`} />
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
@@ -494,7 +524,7 @@ function Featured() {
         >
           <div className="grid md:grid-cols-[1.3fr_1fr]">
             <div className="relative aspect-video md:aspect-auto">
-              <ReelArt tone="a" label="FEATURED · AMBER HOURS · 02:30" />
+              <ReelArt src={thumb2} label="FEATURED · AMBER HOURS · 02:30" />
               <button
                 aria-label="Play trailer"
                 className="absolute inset-0 grid place-items-center transition-transform hover:scale-[1.02]"
@@ -742,14 +772,15 @@ function About() {
           className="relative overflow-hidden rounded-[32px] border border-foreground/10 shadow-soft"
         >
           <div className="relative aspect-[4/5]">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg,#1a1410 0%,#3b2a12 50%,#F6C453 120%)",
-              }}
+            <img
+              src={aboutPortrait}
+              alt="Portrait of Kai in the edit suite"
+              loading="lazy"
+              width={1024}
+              height={1280}
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(500px_300px_at_30%_20%,rgba(255,255,255,0.35),transparent)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
             <div className="absolute inset-x-8 bottom-8 rounded-2xl glass p-4">
               <div className="text-[11px] uppercase tracking-widest text-muted-foreground">Currently</div>
               <div className="mt-1 font-display text-lg font-semibold">Cutting a documentary in Kyoto</div>
@@ -913,6 +944,34 @@ function Footer() {
   );
 }
 
+/* ---------------- Specialty ticker ---------------- */
+function SpecialtyTicker() {
+  const items = [
+    "Commercials",
+    "AI Films",
+    "Documentaries",
+    "Podcasts",
+    "Brand Films",
+    "Social Content",
+    "Music Videos",
+    "Color Grading",
+  ];
+  return (
+    <div className="relative border-y border-foreground/10 bg-primary py-6 text-primary-foreground overflow-hidden">
+      <div className="[mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)] overflow-hidden">
+        <div className="animate-marquee flex w-max items-center gap-14 whitespace-nowrap">
+          {[...items, ...items, ...items].map((it, i) => (
+            <span key={i} className="flex items-center gap-14 font-display text-2xl font-medium tracking-tight md:text-4xl">
+              {it}
+              <span className="text-[color:var(--gold)]">✱</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Page ---------------- */
 function Index() {
   return (
@@ -920,6 +979,7 @@ function Index() {
       <ScrollProgress />
       <Nav />
       <Hero />
+      <SpecialtyTicker />
       <TrustedBy />
       <Portfolio />
       <Featured />
