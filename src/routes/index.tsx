@@ -23,6 +23,15 @@ import {
   Star,
 } from "lucide-react";
 
+import heroStill from "@/assets/hero-still.jpg";
+import aboutPortrait from "@/assets/about-portrait.jpg";
+import thumb1 from "@/assets/thumb-1.jpg";
+import thumb2 from "@/assets/thumb-2.jpg";
+import thumb3 from "@/assets/thumb-3.jpg";
+import thumb4 from "@/assets/thumb-4.jpg";
+import thumb5 from "@/assets/thumb-5.jpg";
+import thumb6 from "@/assets/thumb-6.jpg";
+
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -250,26 +259,47 @@ function FloatingReel() {
   );
 }
 
-function ReelArt({ tone, label }: { tone: "a" | "b" | "c"; label: string }) {
-  const bg =
-    tone === "a"
-      ? "linear-gradient(135deg,#1a1a1a,#3b2a12 60%,#F6C453)"
-      : tone === "b"
-      ? "linear-gradient(135deg,#141414,#5a2d0a 55%,#FFB347)"
-      : "linear-gradient(135deg,#0f0f0f,#2a2410 50%,#F6C453 130%)";
+function ReelArt({
+  src,
+  label,
+  showPlay = false,
+  eager = false,
+}: {
+  src: string;
+  label?: string;
+  showPlay?: boolean;
+  eager?: boolean;
+}) {
   return (
-    <div className="relative h-full w-full" style={{ background: bg }}>
-      <div className="absolute inset-0 bg-[radial-gradient(400px_200px_at_20%_20%,rgba(255,255,255,0.25),transparent)]" />
-      <div className="absolute inset-x-0 bottom-0 h-8 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.7)_0_10px,transparent_10px_20px)]" />
-      <div className="absolute inset-x-0 top-0 h-8 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.7)_0_10px,transparent_10px_20px)]" />
-      <div className="absolute left-4 top-1/2 -translate-y-1/2">
-        <div className="grid h-10 w-10 place-items-center rounded-full bg-white/90 text-black">
-          <Play className="h-4 w-4 fill-current" />
+    <div className="relative h-full w-full overflow-hidden bg-[#111]">
+      <img
+        src={src}
+        alt=""
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* cinematic vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_45%,rgba(0,0,0,0.55)_100%)]" />
+      {/* film strip perforations */}
+      <div className="absolute inset-x-0 top-0 h-4 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.85)_0_8px,transparent_8px_16px)] opacity-70" />
+      <div className="absolute inset-x-0 bottom-0 h-4 bg-[repeating-linear-gradient(90deg,rgba(0,0,0,0.85)_0_8px,transparent_8px_16px)] opacity-70" />
+      {showPlay && (
+        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-white/95 text-black shadow-lg">
+            <Play className="h-4 w-4 fill-current" />
+          </div>
         </div>
-      </div>
-      <div className="absolute bottom-3 right-4 text-[10px] font-medium uppercase tracking-widest text-white/90">
-        {label}
-      </div>
+      )}
+      {label && (
+        <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] font-medium uppercase tracking-widest text-white/90">
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--gold)]" />
+            REC
+          </span>
+          <span>{label}</span>
+        </div>
+      )}
     </div>
   );
 }
