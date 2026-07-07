@@ -218,19 +218,19 @@ function FloatingReel() {
         style={{ y: y1 }}
         className="animate-float absolute right-0 top-0 h-56 w-96 overflow-hidden rounded-3xl shadow-soft"
       >
-        <ReelArt tone="a" label="COMMERCIAL · 04:12" />
+        <ReelArt src={thumb6} label="COMMERCIAL · 04:12" showPlay eager />
       </motion.div>
       <motion.div
         style={{ y: y2 }}
         className="animate-float absolute right-[26%] top-[38%] h-44 w-72 overflow-hidden rounded-3xl shadow-soft [animation-delay:-2s]"
       >
-        <ReelArt tone="b" label="AI FILM · 02:48" />
+        <ReelArt src={thumb5} label="AI FILM · 02:48" showPlay eager />
       </motion.div>
       <motion.div
         style={{ y: y3 }}
         className="animate-float absolute right-[52%] top-[12%] h-40 w-64 overflow-hidden rounded-3xl shadow-soft [animation-delay:-4s]"
       >
-        <ReelArt tone="c" label="DOC · 12:03" />
+        <ReelArt src={thumb3} label="DOC · 12:03" showPlay eager />
       </motion.div>
 
       {/* Timeline strip */}
