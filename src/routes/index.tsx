@@ -772,14 +772,15 @@ function About() {
           className="relative overflow-hidden rounded-[32px] border border-foreground/10 shadow-soft"
         >
           <div className="relative aspect-[4/5]">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg,#1a1410 0%,#3b2a12 50%,#F6C453 120%)",
-              }}
+            <img
+              src={aboutPortrait}
+              alt="Portrait of Kai in the edit suite"
+              loading="lazy"
+              width={1024}
+              height={1280}
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-[radial-gradient(500px_300px_at_30%_20%,rgba(255,255,255,0.35),transparent)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
             <div className="absolute inset-x-8 bottom-8 rounded-2xl glass p-4">
               <div className="text-[11px] uppercase tracking-widest text-muted-foreground">Currently</div>
               <div className="mt-1 font-display text-lg font-semibold">Cutting a documentary in Kyoto</div>
