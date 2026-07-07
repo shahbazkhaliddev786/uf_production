@@ -944,6 +944,34 @@ function Footer() {
   );
 }
 
+/* ---------------- Specialty ticker ---------------- */
+function SpecialtyTicker() {
+  const items = [
+    "Commercials",
+    "AI Films",
+    "Documentaries",
+    "Podcasts",
+    "Brand Films",
+    "Social Content",
+    "Music Videos",
+    "Color Grading",
+  ];
+  return (
+    <div className="relative border-y border-foreground/10 bg-primary py-6 text-primary-foreground overflow-hidden">
+      <div className="[mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)] overflow-hidden">
+        <div className="animate-marquee flex w-max items-center gap-14 whitespace-nowrap">
+          {[...items, ...items, ...items].map((it, i) => (
+            <span key={i} className="flex items-center gap-14 font-display text-2xl font-medium tracking-tight md:text-4xl">
+              {it}
+              <span className="text-[color:var(--gold)]">✱</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Page ---------------- */
 function Index() {
   return (
@@ -951,6 +979,7 @@ function Index() {
       <ScrollProgress />
       <Nav />
       <Hero />
+      <SpecialtyTicker />
       <TrustedBy />
       <Portfolio />
       <Featured />
