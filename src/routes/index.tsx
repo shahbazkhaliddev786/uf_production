@@ -114,56 +114,94 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-5xl">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-surface/70 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--gold)] opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--gold)]" />
-            </span>
-            Available for select projects — Winter 2026
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            className="mt-6 text-balance font-display text-[13vw] leading-[0.95] font-semibold tracking-tight sm:text-7xl md:text-[104px]"
-          >
-            Turning ideas into{" "}
-            <span className="relative inline-block">
-              <span className="italic font-normal bg-gradient-to-br from-[color:var(--foreground)] via-[color:var(--ember)] to-[color:var(--gold)] bg-clip-text text-transparent">
-                cinematic
+        <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-center">
+          <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-3xl">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-surface/70 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--gold)] opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--gold)]" />
               </span>
-            </span>{" "}
-            stories.
-          </motion.h1>
+              Available for select projects — Winter 2026
+            </motion.div>
 
-          <motion.p
-            variants={fadeUp}
-            className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl"
+            <motion.h1
+              variants={fadeUp}
+              className="mt-6 text-balance font-display text-[13vw] leading-[0.95] font-semibold tracking-tight sm:text-7xl md:text-[92px]"
+            >
+              Turning ideas into{" "}
+              <span className="relative inline-block">
+                <span className="italic font-normal bg-gradient-to-br from-[color:var(--foreground)] via-[color:var(--ember)] to-[color:var(--gold)] bg-clip-text text-transparent">
+                  cinematic
+                </span>
+              </span>{" "}
+              stories.
+            </motion.h1>
+
+            <motion.p
+              variants={fadeUp}
+              className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl"
+            >
+              I'm Kai — an independent video editor shaping commercials, AI films, documentaries,
+              podcasts, brand films and social content that feel considered, cinematic and alive.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-3">
+              <MagneticButton href="#work" variant="primary">
+                <Play className="h-4 w-4" /> View portfolio
+              </MagneticButton>
+              <MagneticButton href="#contact" variant="ghost">
+                Let's work together
+                <ArrowUpRight className="h-4 w-4" />
+              </MagneticButton>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="mt-16 grid grid-cols-3 gap-6 max-w-xl">
+              <Stat value={180} suffix="+" label="Films delivered" />
+              <Stat value={42} label="Global brands" />
+              <Stat value={9} label="Years crafting" />
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="relative mx-auto md:mx-0"
           >
-            I'm Kai — an independent video editor shaping commercials, AI films, documentaries,
-            podcasts, brand films and social content that feel considered, cinematic and alive.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-3">
-            <MagneticButton href="#work" variant="primary">
-              <Play className="h-4 w-4" /> View portfolio
-            </MagneticButton>
-            <MagneticButton href="#contact" variant="ghost">
-              Let's work together
-              <ArrowUpRight className="h-4 w-4" />
-            </MagneticButton>
+            <div className="relative h-64 w-64 sm:h-80 sm:w-80 md:h-[22rem] md:w-[22rem] lg:h-[26rem] lg:w-[26rem]">
+              {/* Rotating dashed ring */}
+              <motion.div
+                aria-hidden
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-4 rounded-full border border-dashed border-foreground/20"
+              />
+              {/* Glow */}
+              <div aria-hidden className="absolute -inset-6 rounded-full bg-[radial-gradient(circle_at_30%_30%,color-mix(in_oklab,var(--gold)_55%,transparent),transparent_70%)] blur-2xl" />
+              {/* Portrait */}
+              <div className="animate-float relative h-full w-full overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-glow">
+                <img
+                  src={aboutPortrait}
+                  alt="Kai Reyes, video editor"
+                  loading="eager"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_55%,rgba(0,0,0,0.35)_100%)]" />
+              </div>
+              {/* Badge */}
+              <div className="absolute -bottom-2 -left-2 rounded-full border border-foreground/10 bg-surface/90 px-3 py-1.5 text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
+                <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--gold)]" />
+                Now editing
+              </div>
+            </div>
           </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-16 grid grid-cols-3 gap-6 max-w-xl">
-            <Stat value={180} suffix="+" label="Films delivered" />
-            <Stat value={42} label="Global brands" />
-            <Stat value={9} label="Years crafting" />
-          </motion.div>
-        </motion.div>
+        </div>
 
         {/* Floating cinematic composition */}
         <FloatingReel />
       </div>
+
     </section>
   );
 }
