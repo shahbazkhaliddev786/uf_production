@@ -92,6 +92,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Kai Reyes — Cinematic Video Editor & Storyteller" },
+      { name: "twitter:description", content: "Independent video editor crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision." },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
