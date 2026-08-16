@@ -136,7 +136,7 @@ function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--gold)] opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--gold)]" />
               </span>
-              Available for select projects — Winter 2026
+              Available for select projects
             </motion.div>
 
             <motion.h1
@@ -171,7 +171,7 @@ function Hero() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-16 grid grid-cols-3 gap-6 max-w-xl">
-              <Stat value={500} suffix="+" label="Films delivered" />
+              <Stat value={500} suffix="+" label="Videos delivered" />
               <Stat value={42} label="Global brands" />
               <Stat value={5} label="Years crafting" />
             </motion.div>
@@ -531,7 +531,7 @@ function Portfolio() {
         >
           <div className="max-w-2xl">
             <motion.div variants={fadeUp} className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Selected work · 2019 — 2026
+              Selected work · 2021 — 2026
             </motion.div>
             <motion.h2 variants={fadeUp} className="mt-4 text-balance font-display text-5xl font-semibold md:text-7xl">
               A reel of stories shaped in the edit.
