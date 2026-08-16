@@ -1032,7 +1032,7 @@ function CTA() {
         >
           Let's create something{" "}
           <span className="font-normal text-[#c99a2e]">
-            cinematic.
+            Eye Catchy.
           </span>
         </motion.h2>
         <motion.p
