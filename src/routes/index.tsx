@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   ArrowUpRight,
   Play,
   Sparkles,
   Film,
-  Mic,
   Wand2,
   Clapperboard,
   Palette,
@@ -14,16 +14,19 @@ import {
   Zap,
   Workflow,
   Layers,
-  Instagram,
-  Youtube,
+  Facebook,
   Linkedin,
   Mail,
   Phone,
   Quote,
   Star,
+  Send,
+  Check,
+  X,
 } from "lucide-react";
 
 import heroStill from "@/assets/hero-still.jpg";
+import logoImg from "@/assets/LOGO.png";
 import aboutPortrait from "@/assets/about-portrait.jpg";
 import thumb1 from "@/assets/thumb-1.jpg";
 import thumb2 from "@/assets/thumb-2.jpg";
@@ -31,11 +34,25 @@ import thumb3 from "@/assets/thumb-3.jpg";
 import thumb4 from "@/assets/thumb-4.jpg";
 import thumb5 from "@/assets/thumb-5.jpg";
 import thumb6 from "@/assets/thumb-6.jpg";
+import { getCategories } from "../db";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  loader: async () => {
+    try {
+      const categories = await getCategories();
+      return { categories };
+    } catch (error) {
+      console.error("Failed to fetch categories, using fallback data:", error);
+      return { categories: [] }; // The component will handle empty categories by falling back to static data
+    }
+  },
   head: () => ({
     meta: [
+      { title: "UF Productions — Cinematic Video Agency" },
+      { name: "description", content: "UF Productions is a video production agency crafting commercials, AI films, documentaries, podcasts, and brand stories." },
+      { property: "og:title", content: "UF Productions — Cinematic Video Agency" },
+      { property: "og:description", content: "UF Productions is a video production agency crafting commercials, AI films, documentaries, podcasts, and brand stories." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200" },
     ],
   }),
@@ -66,11 +83,9 @@ function Nav() {
       className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[min(1200px,calc(100%-1.5rem))]"
     >
       <div className="glass flex items-center justify-between rounded-full px-4 py-2.5 shadow-soft">
-        <a href="#top" className="flex items-center gap-2 pl-2">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-primary text-primary-foreground text-[11px] font-bold">
-            KR
-          </span>
-          <span className="font-display text-sm font-semibold tracking-tight">Kai Reyes</span>
+        <a href="#top" className="flex items-center gap-2.5 pl-2">
+          <img src={logoImg} alt="UF Productions Logo" className="h-7 w-7 object-cover rounded-full border border-[color:var(--gold)]/40" />
+          <span className="font-display text-sm font-semibold tracking-tight">UF Productions</span>
         </a>
         <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
           <a href="#work" className="hover:text-foreground transition-colors">Work</a>
@@ -79,8 +94,8 @@ function Nav() {
           <a href="#about" className="hover:text-foreground transition-colors">About</a>
         </nav>
         <a
-          href="#contact"
-          className="group inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
+          href="#contact-form"
+          className="group inline-flex items-center gap-1.5 rounded-full bg-[color:var(--gold)] px-4 py-2 text-xs font-medium text-primary transition-transform hover:scale-[1.03]"
         >
           Let's talk
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -130,7 +145,7 @@ function Hero() {
             >
               Turning ideas into{" "}
               <span className="relative inline-block">
-                <span className="italic font-normal bg-gradient-to-br from-[color:var(--foreground)] via-[color:var(--ember)] to-[color:var(--gold)] bg-clip-text text-transparent">
+                <span className="font-normal text-[#c99a2e]">
                   cinematic
                 </span>
               </span>{" "}
@@ -141,7 +156,7 @@ function Hero() {
               variants={fadeUp}
               className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl"
             >
-              I'm Kai — an independent video editor shaping commercials, AI films, documentaries,
+              I'm Umer — an independent video editor shaping commercials, AI films, documentaries,
               podcasts, brand films and social content that feel considered, cinematic and alive.
             </motion.p>
 
@@ -182,7 +197,7 @@ function Hero() {
               <div className="animate-float relative h-full w-full overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-glow">
                 <img
                   src={aboutPortrait}
-                  alt="Kai Reyes, video editor"
+                  alt="Umer Farooq, video editor"
                   loading="eager"
                   decoding="async"
                   className="h-full w-full object-cover"
@@ -270,29 +285,6 @@ function FloatingReel() {
       >
         <ReelArt src={thumb3} label="DOC · 12:03" showPlay eager />
       </motion.div>
-
-      {/* Timeline strip */}
-      <div className="absolute bottom-0 left-0 right-0 rounded-2xl border border-foreground/10 bg-surface/70 p-3 backdrop-blur">
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--gold)]" /> Timeline · Sequence 01
-        </div>
-        <div className="mt-2 grid grid-cols-24 gap-[3px]">
-          {Array.from({ length: 48 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-6 rounded-[3px]"
-              style={{
-                background:
-                  i % 7 === 0
-                    ? "var(--gold)"
-                    : i % 5 === 0
-                    ? "var(--ember)"
-                    : "color-mix(in oklab, var(--foreground) 12%, transparent)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -312,7 +304,7 @@ function ReelArt({
     <div className="relative h-full w-full overflow-hidden bg-[#111]">
       <img
         src={src}
-        alt=""
+        alt={label ? `Cinematic reel for ${label}` : "Cinematic video reel thumbnail"}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
@@ -367,7 +359,7 @@ function MagneticButton({
       className={
         "group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium transition-colors " +
         (variant === "primary"
-          ? "bg-primary text-primary-foreground hover:bg-foreground"
+          ? "bg-[color:var(--gold)] text-primary hover:brightness-95"
           : "border border-foreground/15 bg-surface/60 text-foreground hover:bg-surface backdrop-blur")
       }
     >
@@ -376,71 +368,157 @@ function MagneticButton({
   );
 }
 
-/* ---------------- Marquee ---------------- */
-function TrustedBy() {
-  const brands = ["Netflix", "Nike", "Airbnb", "Vogue", "Spotify", "Figma", "Notion", "Ferrari", "Nespresso", "Louis Vuitton"];
-  return (
-    <section className="py-16 border-y border-foreground/5 bg-surface/50">
-      <div className="mx-auto max-w-7xl px-6">
-        <p className="text-center text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Trusted by teams that care about craft
-        </p>
-        <div className="relative mt-8 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]">
-          <div className="animate-marquee flex w-max gap-16 whitespace-nowrap">
-            {[...brands, ...brands].map((b, i) => (
-              <span
-                key={i}
-                className="font-display text-2xl font-semibold tracking-tight text-foreground/50 hover:text-foreground transition-colors"
-              >
-                {b}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Portfolio ---------------- */
 type Project = {
   title: string;
   category: string;
   desc: string;
   duration: string;
   image: string;
+  videoLink: string;
 };
-const PROJECTS: Record<string, Project[]> = {
-  "AI Videos": [
-    { title: "Neon Cartographers", category: "AI Short Film", desc: "A stylised AI-generated journey through invented cities.", duration: "03:24", image: thumb1 },
-    { title: "Echoes of Tomorrow", category: "AI Commercial", desc: "Product story blending live plates with generative motion.", duration: "01:12", image: thumb5 },
-    { title: "The Silent Loop", category: "AI Music Video", desc: "Rhythmic edit synced to a generative aesthetic.", duration: "02:48", image: thumb3 },
-  ],
-  Documentaries: [
-    { title: "Salt & Iron", category: "Feature Doc", desc: "Shipbuilders on the northern coast, told over one year.", duration: "12:03", image: thumb3 },
-    { title: "Between the Peaks", category: "Travel Doc", desc: "Andean guides and the geography of memory.", duration: "18:41", image: thumb6 },
-    { title: "Small Fires", category: "Social Impact", desc: "Community storytellers rebuilding after loss.", duration: "22:10", image: thumb4 },
-  ],
-  "Cinematic Videos": [
-    { title: "Amber Hours", category: "Brand Film", desc: "A watchmaker's studio filmed in a single golden afternoon.", duration: "02:30", image: thumb2 },
-    { title: "Atrium", category: "Commercial", desc: "Architectural showcase with slow motion and warm grade.", duration: "01:45", image: thumb1 },
-    { title: "Northbound", category: "Automotive", desc: "A road film with practical light and analog textures.", duration: "03:12", image: thumb6 },
-  ],
-  Podcasts: [
-    { title: "The Long Take", category: "Podcast Series", desc: "Editorial cutdowns and animated pull-quotes.", duration: "45:00", image: thumb4 },
-    { title: "After Hours", category: "Interview Show", desc: "Multi-cam edits with cinematic B-roll interludes.", duration: "38:14", image: thumb4 },
-    { title: "Signal & Noise", category: "Tech Podcast", desc: "Motion-graphic explainers between conversation.", duration: "51:22", image: thumb2 },
-  ],
-  "AI Stories": [
-    { title: "Paper Weather", category: "AI Narrative", desc: "A miniature world where forecasts become fables.", duration: "04:02", image: thumb5 },
-    { title: "The Cartographer's Dream", category: "AI Short", desc: "A dream sequence stitched from thousands of frames.", duration: "05:18", image: thumb1 },
-    { title: "Chorus", category: "AI Anthology", desc: "Six voices, six cities, one continuous edit.", duration: "07:44", image: thumb3 },
-  ],
-};
-const TABS = Object.keys(PROJECTS);
 
+/* ---------------- YouTube helpers ---------------- */
+function getYouTubeId(url: string): string | null {
+  if (!url) return null;
+  // youtube.com/watch?v=ID
+  const longMatch = url.match(/[?&]v=([^&]+)/);
+  if (longMatch) return longMatch[1];
+  // youtu.be/ID
+  const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
+  if (shortMatch) return shortMatch[1];
+  // youtube.com/shorts/ID
+  const shortsMatch = url.match(/youtube\.com\/shorts\/([^?&]+)/);
+  if (shortsMatch) return shortsMatch[1];
+  // youtube.com/embed/ID
+  const embedMatch = url.match(/youtube\.com\/embed\/([^?&]+)/);
+  if (embedMatch) return embedMatch[1];
+  return null;
+}
+
+function getYouTubeThumbnail(url: string): string {
+  const id = getYouTubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : thumb1;
+}
+
+/* ---------------- Video Modal ---------------- */
+function VideoModal({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  const videoId = getYouTubeId(project.videoLink);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+      onClick={onClose}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
+
+      {/* Floating Viewport Close Button */}
+      <button
+        onClick={onClose}
+        className="fixed top-6 right-6 z-[110] flex items-center gap-2 rounded-full bg-white/10 px-4 py-2.5 text-sm font-medium text-white/80 backdrop-blur transition-all hover:bg-white/20 hover:text-white hover:scale-105 shadow-lg border border-white/10"
+        aria-label="Close modal"
+      >
+        <X className="h-4 w-4" />
+        <span>Close</span>
+        <span className="text-xs text-white/40 border-l border-white/20 pl-2">ESC</span>
+      </button>
+
+      {/* Content */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.92, y: 20 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 w-full max-w-4xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+
+
+        {/* Video player */}
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+          <div className="relative aspect-video w-full">
+            {videoId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title={project.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-white/60">
+                <p>Video not available</p>
+              </div>
+            )}
+          </div>
+          {/* Info bar */}
+          <div className="flex items-start justify-between gap-4 border-t border-white/10 bg-black/60 p-5">
+            <div>
+              <div className="text-[11px] uppercase tracking-widest text-white/40">{project.category}</div>
+              <h3 className="mt-1 font-display text-lg font-semibold text-white">{project.title}</h3>
+              <p className="mt-1 text-sm text-white/60">{project.desc}</p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ---------------- Portfolio ---------------- */
 function Portfolio() {
-  const [active, setActive] = useState(TABS[0]);
+  const { categories } = Route.useLoaderData();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const hasCategories = Array.isArray(categories) && categories.length > 0;
+
+  const TABS = hasCategories ? categories.map((c: any) => c.name) : [];
+
+  const PROJECTS: Record<string, Project[]> = hasCategories
+    ? categories.reduce((acc: Record<string, Project[]>, c: any) => {
+      acc[c.name] = c.projects.map((p: any) => ({
+        title: p.videoTitle,
+        category: c.name,
+        desc: p.videoDescription,
+        duration: "00:00",
+        image: getYouTubeThumbnail(p.videoLink),
+        videoLink: p.videoLink,
+      }));
+      return acc;
+    }, {})
+    : {};
+
+  const [active, setActive] = useState(TABS[0] || "");
+
+  // Reset active tab if it's no longer in the list
+  useEffect(() => {
+    if (TABS.length > 0 && !TABS.includes(active)) {
+      setActive(TABS[0]);
+    }
+  }, [TABS, active]);
+
   return (
     <section id="work" className="relative py-28 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
@@ -465,65 +543,114 @@ function Portfolio() {
           </motion.p>
         </motion.div>
 
-        {/* Tabs */}
-        <div className="mt-12 flex flex-wrap gap-2 rounded-full border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full overflow-x-auto">
-          {TABS.map((t) => {
-            const isActive = t === active;
-            return (
-              <button
-                key={t}
-                onClick={() => setActive(t)}
-                className="relative rounded-full px-4 py-2 text-sm font-medium transition-colors"
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="tab-pill"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="absolute inset-0 rounded-full bg-primary"
-                  />
-                )}
-                <span className={"relative " + (isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>
-                  {t}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Empty state — no categories at all */}
+        {!hasCategories && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-16 flex flex-col items-center justify-center rounded-3xl border border-dashed border-foreground/15 bg-surface/50 py-20 text-center"
+          >
+            <Film className="h-10 w-10 text-muted-foreground/40" />
+            <p className="mt-4 font-display text-xl font-semibold text-muted-foreground">No projects yet</p>
+            <p className="mt-2 text-sm text-muted-foreground/60">Check back soon — new work is on the way.</p>
+          </motion.div>
+        )}
 
-        {/* Grid */}
-        <div className="mt-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
-              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-            >
-              {PROJECTS[active].map((p, i) => (
-                <ProjectCard key={p.title} project={p} index={i} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {/* Tabs */}
+        {hasCategories && (
+          <>
+            <div className="mt-12 flex flex-wrap gap-2 rounded-full border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full overflow-x-auto">
+              {TABS.map((t: string) => {
+                const isActive = t === active;
+                return (
+                  <button
+                    key={t}
+                    onClick={() => setActive(t)}
+                    className="relative rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="tab-pill"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="absolute inset-0 rounded-full bg-[color:var(--gold)]"
+                      />
+                    )}
+                    <span className={"relative " + (isActive ? "text-primary" : "text-muted-foreground hover:text-foreground")}>
+                      {t}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Grid */}
+            <div className="mt-10">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
+                  className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+                >
+                  {PROJECTS[active] && PROJECTS[active].length > 0 ? (
+                    PROJECTS[active].map((p: Project, i: number) => (
+                      <ProjectCard
+                        key={p.title + i}
+                        project={p}
+                        index={i}
+                        onPlay={() => setSelectedProject(p)}
+                      />
+                    ))
+                  ) : (
+                    <div className="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-foreground/15 bg-surface/50 py-16 text-center">
+                      <Clapperboard className="h-8 w-8 text-muted-foreground/40" />
+                      <p className="mt-3 text-sm text-muted-foreground">No videos in this category yet.</p>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </>
+        )}
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <VideoModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  onPlay,
+}: {
+  project: Project;
+  index: number;
+  onPlay: () => void;
+}) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-      className="group relative overflow-hidden rounded-3xl border border-foreground/10 bg-surface transition-all duration-500 hover:-translate-y-1 hover:shadow-glow"
+      className="group relative cursor-pointer overflow-hidden rounded-3xl border border-foreground/10 bg-surface transition-all duration-500 hover:-translate-y-1 hover:shadow-glow"
+      onClick={onPlay}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-          <ReelArt src={project.image} label={`${project.category.toUpperCase()} · ${project.duration}`} />
+          <ReelArt src={project.image} label={`${project.category.toUpperCase()}`} />
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
@@ -539,9 +666,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{project.category}</div>
           <h3 className="mt-2 font-display text-xl font-semibold tracking-tight">{project.title}</h3>
           <p className="mt-2 text-sm text-muted-foreground">{project.desc}</p>
-        </div>
-        <div className="shrink-0 rounded-full border border-foreground/10 px-2.5 py-1 text-[10px] font-medium tabular-nums text-muted-foreground">
-          {project.duration}
         </div>
       </div>
     </motion.article>
@@ -676,11 +800,12 @@ function Services() {
 const STEPS = [
   { n: "01", t: "Discovery", d: "We align on story, audience and the feeling to leave behind." },
   { n: "02", t: "Planning", d: "Structure, references, selects and a clear editorial map." },
-  { n: "03", t: "Editing", d: "Assemblies to fine cut — rhythm, restraint, intention." },
-  { n: "04", t: "Motion graphics", d: "Typography, transitions and animated storytelling." },
-  { n: "05", t: "Color grading", d: "A grade tuned to your palette and platform." },
-  { n: "06", t: "Sound design", d: "Score, foley and mix crafted for scale." },
-  { n: "07", t: "Final delivery", d: "Masters, socials and versioned deliverables — on time." },
+  { n: "03", t: "AI visuals", d: "Generative shots and stylised elements crafted to fit the story." },
+  { n: "04", t: "Editing", d: "Assemblies to fine cut — rhythm, restraint, intention." },
+  { n: "05", t: "Motion graphics", d: "Typography, transitions and animated storytelling." },
+  { n: "06", t: "Color grading", d: "A grade tuned to your palette and platform." },
+  { n: "07", t: "Sound design", d: "Score, foley and mix crafted for scale." },
+  { n: "08", t: "Final delivery", d: "Masters, socials and versioned deliverables — on time." },
 ];
 function Process() {
   const ref = useRef<HTMLDivElement>(null);
@@ -734,7 +859,7 @@ function Process() {
 
 /* ---------------- Testimonials ---------------- */
 const TESTIMONIALS = [
-  { name: "Amelia Choi", role: "Creative Director, Nine&Co", quote: "Kai edits with taste that's hard to find. Every cut felt intentional and the film shipped ahead of schedule." },
+  { name: "Amelia Choi", role: "Creative Director, Nine&Co", quote: "Umer edits with taste that's hard to find. Every cut felt intentional and the film shipped ahead of schedule." },
   { name: "Marcus Alderly", role: "Founder, Field Studio", quote: "He turned a stack of raw footage into a story we're proud to send everywhere. Genuine collaborator." },
   { name: "Priya Ramanathan", role: "Head of Brand, Northwind", quote: "Cinematic, precise, and completely calm to work with. Our team asked for him by name on the next project." },
   { name: "Théo Marchetti", role: "Executive Producer, Atrium Films", quote: "One of the sharpest editors I've worked with in the past five years. The color and sound feel like a full studio." },
@@ -812,7 +937,7 @@ function About() {
           <div className="relative aspect-[4/5]">
             <img
               src={aboutPortrait}
-              alt="Portrait of Kai in the edit suite"
+              alt="Portrait of Umer in the edit suite"
               loading="lazy"
               width={1024}
               height={1280}
@@ -892,7 +1017,7 @@ function CTA() {
           className="font-display text-6xl font-semibold tracking-tight text-balance md:text-8xl"
         >
           Let's create something{" "}
-          <span className="italic font-normal bg-gradient-to-r from-[color:var(--gold)] to-[color:var(--ember)] bg-clip-text text-transparent">
+          <span className="font-normal text-[#c99a2e]">
             cinematic.
           </span>
         </motion.h2>
@@ -931,24 +1056,74 @@ function CTA() {
   );
 }
 
+/* ---------------- Contact form ---------------- */
+function ContactForm() {
+  const [state, handleSubmit] = useForm("mqpzdqdn");
+
+  const field =
+    "w-full rounded-xl border border-foreground/10 bg-surface/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-[color:var(--gold)]";
+
+  return (
+    <div id="contact-form" className="mx-auto w-full max-w-xl rounded-2xl border border-foreground/10 bg-surface/40 p-6 backdrop-blur scroll-mt-28">
+      <div className="text-center text-xs uppercase tracking-widest text-muted-foreground">Get in touch</div>
+      <h3 className="mt-1 text-center font-display text-2xl font-semibold">Let's talk</h3>
+
+      {state.succeeded ? (
+        <div className="mt-6 flex items-start gap-3 rounded-xl border border-[color:var(--gold)]/40 bg-[color:var(--gold)]/10 p-4 text-sm">
+          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--gold)]" />
+          <span>Thanks for getting in touch! Your message has been sent successfully. I'll get back to you soon.</span>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+          <div>
+            <input aria-label="Name" id="name" name="name" className={field} placeholder="Name" required />
+            <ValidationError prefix="Name" field="name" errors={state.errors} className="mt-1 text-xs text-[color:var(--ember)]" />
+          </div>
+          <div>
+            <input aria-label="Email" id="email" type="email" name="email" className={field} placeholder="Email" required />
+            <ValidationError prefix="Email" field="email" errors={state.errors} className="mt-1 text-xs text-[color:var(--ember)]" />
+          </div>
+          <div>
+            <input aria-label="Phone (optional)" id="phone" name="phone" className={field} placeholder="Phone (optional)" />
+            <ValidationError prefix="Phone" field="phone" errors={state.errors} className="mt-1 text-xs text-[color:var(--ember)]" />
+          </div>
+          <div>
+            <textarea aria-label="Message" id="message" name="message" rows={4} className={field + " resize-none"} placeholder="Tell me about your project" required />
+            <ValidationError prefix="Message" field="message" errors={state.errors} className="mt-1 text-xs text-[color:var(--ember)]" />
+          </div>
+          <button
+            type="submit"
+            disabled={state.submitting}
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[color:var(--gold)] px-6 py-3 text-sm font-medium text-primary transition-transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {state.submitting ? "Sending..." : "Send message"}
+            <Send className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
 /* ---------------- Footer ---------------- */
 function Footer() {
   return (
     <footer className="border-t border-foreground/10">
       <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                KR
-              </span>
-              <span className="font-display text-lg font-semibold">Kai Reyes</span>
+        <div className="grid gap-10">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2.5">
+              <img src={logoImg} alt="UF Productions Logo" className="h-9 w-9 object-cover rounded-full border border-[color:var(--gold)]/40" />
+              <span className="font-display text-lg font-semibold">UF Productions</span>
             </div>
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              An independent editor cutting cinematic film, commercials and AI-native stories.
-              Based between Lisbon and Kyoto.
+            <p className="mx-auto mt-4 max-w-sm text-sm text-muted-foreground">
+              A premier video production agency crafting cinematic films, commercials, and AI-native stories.
             </p>
           </div>
+          <ContactForm />
+        </div>
+
+        <div className="mt-12 grid gap-10 border-t border-foreground/5 pt-10 md:grid-cols-2">
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground">Navigate</div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -961,21 +1136,33 @@ function Footer() {
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground">Contact</div>
             <ul className="mt-4 space-y-2 text-sm">
-              <li className="flex items-center gap-2 text-muted-foreground"><Mail className="h-4 w-4" /> hello@kaireyes.film</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Mail className="h-4 w-4" /> hello@ufproductions.com</li>
               <li className="flex items-center gap-2 text-muted-foreground"><Phone className="h-4 w-4" /> +351 910 000 000</li>
               <li className="mt-4 flex items-center gap-3">
-                <a aria-label="Instagram" href="#" className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 hover:border-[color:var(--gold)] transition-colors"><Instagram className="h-4 w-4" /></a>
-                <a aria-label="YouTube" href="#" className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 hover:border-[color:var(--gold)] transition-colors"><Youtube className="h-4 w-4" /></a>
-                <a aria-label="LinkedIn" href="#" className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 hover:border-[color:var(--gold)] transition-colors"><Linkedin className="h-4 w-4" /></a>
+                <a
+                  aria-label="Facebook"
+                  href="https://web.facebook.com/profile.php?id=100084393908084"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 hover:border-[color:var(--gold)] transition-colors"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+                <a
+                  aria-label="LinkedIn"
+                  href="https://www.linkedin.com/in/umar-farooq-3ab007299/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 hover:border-[color:var(--gold)] transition-colors"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-foreground/5 pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} Kai Reyes Studio. All rights reserved.</div>
-          <div className="flex items-center gap-2">
-            <Film className="h-3.5 w-3.5" /> Crafted with intent.
-          </div>
+          <div>© {new Date().getFullYear()} UF Productions. All rights reserved.</div>
         </div>
       </div>
     </footer>
@@ -1018,7 +1205,6 @@ function Index() {
       <Nav />
       <Hero />
       <SpecialtyTicker />
-      <TrustedBy />
       <Portfolio />
       <Featured />
       <Services />

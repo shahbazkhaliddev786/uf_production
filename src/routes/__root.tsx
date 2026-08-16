@@ -77,27 +77,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kai Reyes — Cinematic Video Editor & Storyteller" },
+      { title: "UF Productions — Cinematic Video Production Agency" },
       {
         name: "description",
         content:
-          "Independent video editor crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision.",
+          "UF Productions is a video production agency crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision.",
       },
-      { name: "author", content: "Kai Reyes" },
-      { property: "og:title", content: "Kai Reyes — Cinematic Video Editor & Storyteller" },
+      { name: "author", content: "UF Productions" },
+      { property: "og:title", content: "UF Productions — Cinematic Video Production Agency" },
       {
         property: "og:description",
         content:
-          "Independent video editor crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision.",
+          "UF Productions is a video production agency crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Kai Reyes — Cinematic Video Editor & Storyteller" },
-      { name: "twitter:description", content: "Independent video editor crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision." },
+      { name: "twitter:title", content: "UF Productions — Cinematic Video Production Agency" },
+      { name: "twitter:description", content: "UF Productions is a video production agency crafting commercials, AI films, documentaries, podcasts and brand stories with cinematic precision." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200" },
       { name: "twitter:image", content: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200" },
     ],
     links: [
+      { rel: "canonical", href: "https://www.yourdomain.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -106,6 +107,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "UF Productions",
+          url: "https://www.yourdomain.com",
+          image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200",
+          sameAs: [
+            "https://web.facebook.com/profile.php?id=100084393908084",
+            "https://www.linkedin.com/in/umar-farooq-3ab007299/"
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

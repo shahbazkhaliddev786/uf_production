@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /umar/farooq/admin
+Allow: /
+
+Sitemap: https://www.yourdomain.com/sitemap.xml
