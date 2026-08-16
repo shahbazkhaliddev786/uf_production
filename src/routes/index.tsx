@@ -146,7 +146,7 @@ function Hero() {
               Turning ideas into{" "}
               <span className="relative inline-block">
                 <span className="font-normal text-[#c99a2e]">
-                  cinematic
+                  impactful
                 </span>
               </span>{" "}
               stories.
