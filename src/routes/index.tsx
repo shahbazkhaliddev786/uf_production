@@ -156,8 +156,8 @@ function Hero() {
               variants={fadeUp}
               className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl"
             >
-              I'm Umer — an independent video editor shaping commercials, AI films, documentaries,
-              podcasts, brand films and social content that feel considered, cinematic and alive.
+              I’m Umar, an extraordinary AI Content Creator. <br className="hidden sm:inline" />
+              I create stories — and my stories create real impact.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-3">
