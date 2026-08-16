@@ -1186,14 +1186,15 @@ function Footer() {
 /* ---------------- Specialty ticker ---------------- */
 function SpecialtyTicker() {
   const items = [
-    "Commercials",
+    "AI Cinematic Documentaries",
     "AI Films",
-    "Documentaries",
-    "Podcasts",
-    "Brand Films",
-    "Social Content",
-    "Music Videos",
-    "Color Grading",
+    "AI Brand Ads",
+    "AI Commercial Ads",
+    "AI Product Ads",
+    "AI UGC Ads",
+    "AI 2D/3D Videos",
+    "AI Cartoon Stories",
+    "AI Realistic Videos",
   ];
   return (
     <div className="relative border-y border-foreground/10 bg-primary py-6 text-primary-foreground overflow-hidden">
