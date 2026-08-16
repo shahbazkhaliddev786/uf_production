@@ -740,14 +740,13 @@ function Featured() {
 
 /* ---------------- Services / Why me ---------------- */
 const SERVICES = [
-  { icon: Sparkles, title: "Storytelling", desc: "Structure, rhythm and pacing shaped around a single, honest idea." },
-  { icon: Palette, title: "Color grading", desc: "Emotional palettes crafted in Resolve, from filmic to editorial." },
-  { icon: AudioLines, title: "Sound design", desc: "Foley, texture and score woven for depth and immersion." },
-  { icon: Layers, title: "Motion graphics", desc: "Typography, transitions and stylised overlays that feel considered." },
-  { icon: Wand2, title: "AI video editing", desc: "Generative workflows blended into real footage, elegantly." },
-  { icon: Zap, title: "Fast delivery", desc: "Predictable turnarounds without compromising the craft." },
-  { icon: Workflow, title: "Pro workflow", desc: "Frame.io reviews, versioned masters, tidy handovers." },
-  { icon: Clapperboard, title: "End-to-end", desc: "From assembly to final master — one editor, one voice." },
+  { icon: Wand2, title: "AI Visuals", desc: "Generative AI visuals, custom model outputs, and cinematic AI-crafted imagery." },
+  { icon: Sparkles, title: "Storytelling", desc: "Structure, rhythm, and pacing shaped into a powerful narrative with real impact." },
+  { icon: Palette, title: "Color Grading", desc: "Emotional color palettes, filmic tones, and high-end visual grading." },
+  { icon: AudioLines, title: "Sound Design", desc: "Immersive audio, foley, voiceovers, and custom scoring for depth." },
+  { icon: Layers, title: "Motion Graphics", desc: "Dynamic typography, 2D/3D animated transitions, and visual FX." },
+  { icon: Workflow, title: "Pro Workflow", desc: "Structured reviews, rapid feedback turnarounds, and versioned master handovers." },
+  { icon: Clapperboard, title: "End-to-End", desc: "From concept, AI generation, and editing to final polish — complete production." },
 ];
 function Services() {
   return (
