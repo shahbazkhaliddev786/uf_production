@@ -1039,13 +1039,13 @@ function CTA() {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <a
-            href="mailto:hello@kaireyes.film"
+            href="mailto:umarsmedia@gmail.com"
             className="group inline-flex items-center gap-2 rounded-full bg-[color:var(--gold)] px-6 py-3.5 text-sm font-medium text-primary transition-transform hover:scale-[1.03]"
           >
             Book a project <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
           <a
-            href="mailto:hello@kaireyes.film"
+            href="mailto:umarsmedia@gmail.com"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium text-primary-foreground hover:bg-white/10 transition-colors"
           >
             Contact me
@@ -1136,8 +1136,8 @@ function Footer() {
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground">Contact</div>
             <ul className="mt-4 space-y-2 text-sm">
-              <li className="flex items-center gap-2 text-muted-foreground"><Mail className="h-4 w-4" /> hello@ufproductions.com</li>
-              <li className="flex items-center gap-2 text-muted-foreground"><Phone className="h-4 w-4" /> +351 910 000 000</li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Mail className="h-4 w-4 shrink-0 text-[color:var(--gold)]" /> <a href="mailto:umarsmedia@gmail.com" className="hover:text-foreground transition-colors">umarsmedia@gmail.com</a></li>
+              <li className="flex items-center gap-2 text-muted-foreground"><Phone className="h-4 w-4 shrink-0 text-[color:var(--gold)]" /> <a href="tel:03223876951" className="hover:text-foreground transition-colors">03223876951</a></li>
               <li className="mt-4 flex items-center gap-3">
                 <a
                   aria-label="Facebook"
