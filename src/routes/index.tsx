@@ -922,7 +922,21 @@ function Testimonials() {
 }
 
 /* ---------------- About ---------------- */
-const SKILLS = ["DaVinci Resolve", "Premiere Pro", "After Effects", "Ableton Live", "Runway", "Sora", "Frame.io", "Cinema 4D", "Figma", "Notion"];
+const SKILLS = [
+  "Higgsfield",
+  "OpenArt",
+  "Kie",
+  "Seedance",
+  "Kling",
+  "MiniMax",
+  "Runway",
+  "Omini Flash",
+  "Veo",
+  "Arcads",
+  "Genspark",
+  "Perplexity",
+  "Premiere Pro",
+];
 function About() {
   return (
     <section id="about" className="relative py-28 md:py-40">
