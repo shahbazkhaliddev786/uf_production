@@ -171,9 +171,9 @@ function Hero() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-16 grid grid-cols-3 gap-6 max-w-xl">
-              <Stat value={180} suffix="+" label="Films delivered" />
+              <Stat value={500} suffix="+" label="Films delivered" />
               <Stat value={42} label="Global brands" />
-              <Stat value={9} label="Years crafting" />
+              <Stat value={5} label="Years crafting" />
             </motion.div>
           </motion.div>
 
@@ -978,14 +978,14 @@ function About() {
             I edit like I'm building a small, careful cathedral.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-6 text-lg text-muted-foreground">
-            Nine years cutting for brands, agencies and independent filmmakers across three
+            Five years creating for brands, agencies and independent creators across three
             continents. I work best when trusted to shape a story end-to-end — from selects to the
             final master — and I care about the last five percent as much as the first eighty.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 grid grid-cols-3 gap-6">
-            <Stat value={9} label="Years editing" />
-            <Stat value={180} suffix="+" label="Projects delivered" />
+            <Stat value={5} label="Years editing" />
+            <Stat value={500} suffix="+" label="Projects delivered" />
             <Stat value={14} label="Industries served" />
           </motion.div>
 
