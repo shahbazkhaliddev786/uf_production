@@ -27,7 +27,7 @@ import {
 
 import heroStill from "@/assets/hero-still.jpg";
 import logoImg from "@/assets/LOGO.png";
-import aboutPortrait from "@/assets/about-portrait.jpg";
+import profileImg from "@/assets/profile.jpg";
 import thumb1 from "@/assets/thumb-1.jpg";
 import thumb2 from "@/assets/thumb-2.jpg";
 import thumb3 from "@/assets/thumb-3.jpg";
@@ -196,8 +196,8 @@ function Hero() {
               {/* Portrait */}
               <div className="animate-float relative h-full w-full overflow-hidden rounded-full ring-1 ring-foreground/10 shadow-glow">
                 <img
-                  src={aboutPortrait}
-                  alt="Umer Farooq, video editor"
+                  src={profileImg}
+                  alt="Umar Farooq, AI Content Creator"
                   loading="eager"
                   decoding="async"
                   className="h-full w-full object-cover"
@@ -949,8 +949,8 @@ function About() {
         >
           <div className="relative aspect-[4/5]">
             <img
-              src={aboutPortrait}
-              alt="Portrait of Umer in the edit suite"
+              src={profileImg}
+              alt="Portrait of Umar Farooq"
               loading="lazy"
               width={1024}
               height={1280}
