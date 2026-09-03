@@ -672,71 +672,7 @@ function ProjectCard({
   );
 }
 
-/* ---------------- Featured project ---------------- */
-function Featured() {
-  return (
-    <section className="relative py-28 md:py-40">
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="overflow-hidden rounded-[36px] border border-foreground/10 bg-surface shadow-soft"
-        >
-          <div className="grid md:grid-cols-[1.3fr_1fr]">
-            <div className="relative aspect-video md:aspect-auto">
-              <ReelArt src={thumb2} label="FEATURED · AMBER HOURS · 02:30" />
-              <button
-                aria-label="Play trailer"
-                className="absolute inset-0 grid place-items-center transition-transform hover:scale-[1.02]"
-              >
-                <span className="grid h-24 w-24 place-items-center rounded-full bg-white/95 text-primary shadow-glow">
-                  <Play className="h-8 w-8 fill-current" />
-                </span>
-              </button>
-            </div>
-            <div className="p-8 md:p-12">
-              <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Featured project</div>
-              <h3 className="mt-3 font-display text-4xl font-semibold tracking-tight md:text-5xl">
-                Amber Hours — a watchmaker's afternoon.
-              </h3>
-              <p className="mt-4 text-muted-foreground">
-                A single-location brand film cut to breathe with the light. Practical lens choices,
-                a warm grade, and a sound design that lets the mechanics speak.
-              </p>
 
-              <dl className="mt-8 grid grid-cols-2 gap-6 text-sm">
-                <div>
-                  <dt className="text-muted-foreground">Services</dt>
-                  <dd className="mt-1 font-medium">Edit · Color · Sound</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Tools</dt>
-                  <dd className="mt-1 font-medium">Resolve · Ableton · AE</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Duration</dt>
-                  <dd className="mt-1 font-medium">02:30</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">Delivered</dt>
-                  <dd className="mt-1 font-medium">May 2026</dd>
-                </div>
-              </dl>
-
-              <div className="mt-10">
-                <MagneticButton href="#work" variant="primary">
-                  Watch full film <ArrowUpRight className="h-4 w-4" />
-                </MagneticButton>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Services / Why me ---------------- */
 const SERVICES = [
@@ -1220,7 +1156,6 @@ function Index() {
       <Hero />
       <SpecialtyTicker />
       <Portfolio />
-      <Featured />
       <Services />
       <Process />
       <Testimonials />
