@@ -560,29 +560,39 @@ function Portfolio() {
         {/* Tabs */}
         {hasCategories && (
           <>
-            <div className="mt-12 flex flex-wrap gap-2 rounded-full border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full overflow-x-auto">
-              {TABS.map((t: string) => {
-                const isActive = t === active;
-                return (
-                  <button
-                    key={t}
-                    onClick={() => setActive(t)}
-                    className="relative rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="tab-pill"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="absolute inset-0 rounded-full bg-[color:var(--gold)]"
-                      />
-                    )}
-                    <span className={"relative " + (isActive ? "text-primary" : "text-muted-foreground hover:text-foreground")}>
-                      {t}
-                    </span>
-                  </button>
-                );
-              })}
+            <div className="relative mt-12">
+              <div
+                className="flex flex-wrap gap-2 rounded-2xl border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full overflow-y-auto scrollbar-thin"
+                style={{ maxHeight: '6.5rem' }}
+              >
+                {TABS.map((t: string) => {
+                  const isActive = t === active;
+                  return (
+                    <button
+                      key={t}
+                      onClick={() => setActive(t)}
+                      className="relative shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap"
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="tab-pill"
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          className="absolute inset-0 rounded-full bg-[color:var(--gold)]"
+                        />
+                      )}
+                      <span className={"relative " + (isActive ? "text-primary" : "text-muted-foreground hover:text-foreground")}>
+                        {t}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Scroll-hint: tiny fade at bottom when more tabs exist */}
+              {TABS.length > 6 && (
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 rounded-b-2xl bg-gradient-to-t from-[color:var(--background)]/60 to-transparent" />
+              )}
             </div>
+
 
             {/* Grid */}
             <div className="mt-10">
