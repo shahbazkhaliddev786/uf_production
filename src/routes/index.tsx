@@ -561,10 +561,7 @@ function Portfolio() {
         {hasCategories && (
           <>
             <div className="relative mt-12">
-              <div
-                className="flex flex-wrap gap-2 rounded-2xl border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full overflow-y-auto scrollbar-thin"
-                style={{ maxHeight: '6.5rem' }}
-              >
+              <div className="flex flex-wrap gap-2 rounded-2xl border border-foreground/10 bg-surface/70 p-1.5 backdrop-blur w-fit max-w-full">
                 {TABS.map((t: string) => {
                   const isActive = t === active;
                   return (
@@ -587,10 +584,6 @@ function Portfolio() {
                   );
                 })}
               </div>
-              {/* Scroll-hint: tiny fade at bottom when more tabs exist */}
-              {TABS.length > 6 && (
-                <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 rounded-b-2xl bg-gradient-to-t from-[color:var(--background)]/60 to-transparent" />
-              )}
             </div>
 
 
